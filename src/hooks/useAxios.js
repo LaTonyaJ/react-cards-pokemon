@@ -1,15 +1,14 @@
 import axios from "axios";
-import uuid from 'uuid';
 import {useState} from 'react';
 
 const useAxios = (_url) => {
-    const [url, setUrl] = useState([]);
-    async function addUrl(){
-    const resp = await axios.get(`${_url}`);
-    setUrl(url => [...url, {...resp.data, id: uuid()}]);
+    const [response, setResponse] = useState([]);
+    async function addResponseData(pokemon = ''){
+    const resp = await axios.get(`${_url}${pokemon}`);
+    setResponse(data => [...data, resp.data]);
     }
 
-    return [url, addUrl];
+    return [response, addResponseData];
 };
 
 export default useAxios;
